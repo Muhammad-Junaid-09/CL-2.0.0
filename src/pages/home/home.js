@@ -1,10 +1,10 @@
 import React from 'react';
 import TableAll from './table-data';
-import {Card, CardBody, CardHeader, CardText} from 'reactstrap';
+import {Card, CardBody, CardText} from 'reactstrap';
 import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
 
 
-import demoAudio from '../../audio/SoundHelix-Song-1.mp3'
+//import demoAudio from '../../audio/SoundHelix-Song-1.mp3'
 import 'react-h5-audio-player/lib/styles.css';
 
 import './index.scss'
@@ -54,6 +54,8 @@ const SidebarUI = ({ isOpen, ...rest }) => {
         isOpen: props.isOpen,
         selected: null,
         originalData: '',
+        path: '',
+        pathArray: [],
       }
       
       this.openSidebar = this.openSidebar.bind(this)
@@ -66,11 +68,16 @@ const SidebarUI = ({ isOpen, ...rest }) => {
     handleCallback = (childData) =>{
         if (childData !== null && childData !== undefined ) {
             this.setState({isOpen : true});
-            this.setState({originalData: childData.original},()=> console.log(this.state.originalData))
+            this.setState({originalData: childData.original, pathArray:[{path: require('../../audio/SoundHelix-Song-1.mp3')}]},()=> console.log(this.state.originalData, this.state.pathArray))
+            //import ('../../audio/SoundHelix-Song-1.mp3')
         }
     }
   
     render() {
+
+      //let path = "../../audio/SoundHelix-Song-1.mp3"
+      //let path = require("../../audio/SoundHelix-Song-1.mp3");
+      //let audio = new Audio(path);
       const { isOpen } = this.state
       const { hasOverlay, isLeft } = this.props
       return (
@@ -86,20 +93,23 @@ const SidebarUI = ({ isOpen, ...rest }) => {
                             <CardBody>
                                 <CardText>
                                 <div  style = {{color: '#737475', fontSize:'16px', padding: '6px', marginBottom: '10px'}}><strong>Recording 43543</strong></div>
-                                   <AudioPlayer
+                                   {this.state.pathArray.map((m) => {
+                                     return <AudioPlayer
                                      
-                                     src={demoAudio}
+                                     src={m.path}
                                      onPlay={e => console.log("onPlay")}
                                      customAdditionalControls={
                                       [
                                         RHAP_UI.LOOP,
-                                        <a href={demoAudio} download="true">
+                                        <a href={m.path} download="true">
                                         <i class="fas fa-download" style = {{width: '26px', height: '26px', color:'#868686', fontSize:'22px', marginLeft:'5px'}}></i>
                                         </a>
                                       ]
                                     }
                                      // other props here
                                    />
+                                   })}
+                                   
                                 </CardText>
 
                             </CardBody>

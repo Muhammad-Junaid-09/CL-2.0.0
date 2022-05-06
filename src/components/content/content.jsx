@@ -9,7 +9,7 @@ function setTitle(path, routeArray) {
 	var pageTitle;
 	for (var i=0; i < routeArray.length; i++) {
 		if (routeArray[i].path === path) {
-			pageTitle = 'Cheque Verification | ' + routeArray[i].title;
+			pageTitle = 'Conversation Logging | ' + routeArray[i].title;
 		}
 	}
 	document.title = (pageTitle) ? pageTitle : 'Color Admin | React App';

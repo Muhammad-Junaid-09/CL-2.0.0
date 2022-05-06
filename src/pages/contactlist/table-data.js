@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useTable, useSortBy, usePagination } from 'react-table';
-import axios from "axios";
 import BTable from "react-bootstrap/Table";
 import ReactLoading from "react-loading";
-import { Panel, PanelHeader, PanelBody } from './../../components/panel/panel.jsx';
-import { Link } from 'react-router-dom';
+
 import makeData from './make-data';
 
 

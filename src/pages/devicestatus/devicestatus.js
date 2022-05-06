@@ -1,7 +1,7 @@
 import React from 'react';
 import TableAll from './table-data';
-import {Card, CardBody, CardHeader, CardText} from 'reactstrap';
-import AudioPlayer from 'react-h5-audio-player';
+import {Card, CardBody, CardText} from 'reactstrap';
+
 import 'react-h5-audio-player/lib/styles.css';
 
 import './index.scss'
