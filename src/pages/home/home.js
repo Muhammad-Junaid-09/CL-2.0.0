@@ -68,7 +68,7 @@ const SidebarUI = ({ isOpen, ...rest }) => {
     handleCallback = (childData) =>{
         if (childData !== null && childData !== undefined ) {
             this.setState({isOpen : true});
-            this.setState({originalData: childData.original, pathArray:[{path: require('../../audio/SoundHelix-Song-1.mp3')}]},()=> console.log(this.state.originalData, this.state.pathArray))
+            this.setState({originalData: childData.original, pathArray:[{path: require(`../../audio/${childData.original.recording_url}`)}]},()=> console.log(this.state.originalData, this.state.pathArray))
             //import ('../../audio/SoundHelix-Song-1.mp3')
         }
     }
