@@ -15,6 +15,7 @@ const TableAll = (props) => {
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [selected, setSelected] = useState(null);
+	const [bandwidth, setBandwidth] = useState(null);
 	const columns = React.useMemo(
     () => [
       {
@@ -66,7 +67,7 @@ const TableAll = (props) => {
 //   data.forEach((photo, index) => { photo.serial = index + 1; });
 
  const formatDate = (string) => {
-    return new Date(string).toLocaleString();
+    return new Date(string).toLocaleString('pkt', { timeZone: 'UTC' });
   }
 
   const selectedData = (row) => {
@@ -83,7 +84,7 @@ const TableAll = (props) => {
       .then((response) => {
 		
         console.log(response.data);
-		let preData = response.data;
+		let preData = response.data.reverse();
 		preData.forEach((photo, index) => { photo.serial = index + 1; });
 		
         setData(preData);
@@ -96,6 +97,33 @@ const TableAll = (props) => {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+ const handleChange = (event) => {
+    setBandwidth(event.target.value);
+	console.log(bandwidth)
+  }
+
+  const handleChangeBandwidth = () => {
+
+	  axios({
+		method: "POST",
+		url: "/set_bw",
+		// headers: {
+		//   Authorization: `Bearer  ${token}`,
+		// },
+		data: {
+		  bandwidth: bandwidth
+		},
+	  })
+		.then((response) => {
+		  console.log(response)
+		  
+		})
+		.catch((error) => {
+		  console.log(error);
+		});
+	
+  }
   
   const {
     getTableProps,
@@ -129,8 +157,23 @@ const TableAll = (props) => {
 					</div>
 					<div className="col-6">
 					</div>
+					
 					<div className="col-3 text-center">
-					<button type="button" className="btn btn-lg btn-white me-1 mb-1"><i className="fas fa-align-center pe-1"></i>   filters</button>
+						<div className = "row">
+					<div className=" form-group" style = {{marginRight: '10px'}}>
+                  <input
+                    type="number"
+                    name="bandwidth"
+                    className="form-control form-control-lg inverse-mode"
+                    placeholder="Set Bandwidth"
+                    required
+                   onChange={handleChange}
+                    //value={this.state.email}
+                   
+                  />
+                </div>
+					<button type="button" className="btn btn-sm btn-white" style = {{height: '40px'}} onClick = { handleChangeBandwidth}><i class="fas fa-arrow-up"></i>  Send</button>
+					</div>
 					</div>
 				</div>
 				<div className="table-responsive">
