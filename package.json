@@ -56,6 +56,7 @@
     "react-image-annotation": "^0.9.10",
     "react-input-mask": "^2.0.4",
     "react-loading": "^2.0.3",
+    "react-notifications": "^1.7.3",
     "react-notifications-component": "^2.4.1",
     "react-nvd3": "^0.5.7",
     "react-perfect-scrollbar": "^1.5.8",

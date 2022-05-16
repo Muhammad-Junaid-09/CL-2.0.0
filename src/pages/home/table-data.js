@@ -3,6 +3,8 @@ import { useTable, useSortBy, usePagination } from 'react-table';
 import axios from "axios";
 import BTable from "react-bootstrap/Table";
 import ReactLoading from "react-loading";
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 
 // import makeData from './make-data';
@@ -66,6 +68,8 @@ const TableAll = (props) => {
 //   const data = React.useMemo(() => makeData(200), []);
 //   data.forEach((photo, index) => { photo.serial = index + 1; });
 
+
+
  const formatDate = (string) => {
     return new Date(string).toLocaleString('pkt', { timeZone: 'UTC' });
   }
@@ -77,6 +81,7 @@ const TableAll = (props) => {
   }
 
   const fetchData = React.useCallback(() => {
+	  
     axios({
       method: "GET",
       url: "/get_all"
@@ -104,8 +109,10 @@ const TableAll = (props) => {
   }
 
   const handleChangeBandwidth = () => {
-
-	  axios({
+	  if (bandwidth < 1 || null){
+		toast("Please Select a value")
+	  } else {
+		 axios({
 		method: "POST",
 		url: "/set_bw",
 		// headers: {
@@ -123,7 +130,12 @@ const TableAll = (props) => {
 		  console.log(error);
 		});
 	
-  }
+	  }
+	
+	
+  };
+
+  
   
   const {
     getTableProps,
@@ -145,7 +157,7 @@ const TableAll = (props) => {
 	 
 	return (
 		<div>
-			
+			 <ToastContainer />
 			{loading ?
 			<div style = {{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}>  
 			<ReactLoading width={100} type={"spinningBubbles"} color="#0083ca" />
